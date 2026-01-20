@@ -1,0 +1,299 @@
+[gd_scene load_steps=12 format=3 uid="uid://q1cealedx4xi"]
+
+[ext_resource type="Script" uid="uid://dfov5efjywjjy" path="res://chess.gd" id="1_r1ws2"]
+[ext_resource type="Script" uid="uid://cis6o34p8760d" path="res://chess_board.gd" id="2_33xsb"]
+[ext_resource type="Script" uid="uid://vajp008kclfr" path="res://promotion_menu.gd" id="2_s2frv"]
+[ext_resource type="Script" uid="uid://ceipqv31kbvfi" path="res://past_moves.gd" id="2_ycel0"]
+[ext_resource type="Script" uid="uid://cqsqk4toqrqh7" path="res://open_settings.gd" id="5_4djml"]
+[ext_resource type="Texture2D" uid="uid://g5vmgalyif5e" path="res://otherSprites/settings.png" id="5_5y81x"]
+[ext_resource type="Script" uid="uid://cfrf5db5ffcqd" path="res://setting_pop_up.gd" id="7_4nir3"]
+[ext_resource type="Script" uid="uid://crrbam30v2e7m" path="res://engine.gd" id="8_87jty"]
+[ext_resource type="Script" uid="uid://bo10mgry4up2m" path="res://reset_game.gd" id="9_tny37"]
+[ext_resource type="Texture2D" uid="uid://db6grqgksw4cv" path="res://otherSprites/pixil-frame-0.png" id="10_8pn77"]
+
+[sub_resource type="SystemFont" id="SystemFont_87jty"]
+
+[node name="Chess" type="Node2D"]
+z_index = 1
+script = ExtResource("1_r1ws2")
+
+[node name="PastMoves" type="Label" parent="."]
+offset_right = 296.0
+offset_bottom = 339.0
+text = "MOVE NUMBER:"
+script = ExtResource("2_ycel0")
+
+[node name="ChessBoard" type="Node2D" parent="."]
+z_index = -1
+script = ExtResource("2_33xsb")
+
+[node name="WhitesTimer" type="Label" parent="ChessBoard"]
+offset_left = 190.0
+offset_top = 960.0
+offset_right = 230.0
+offset_bottom = 1005.0
+theme_override_font_sizes/font_size = 32
+
+[node name="BlacksTimer" type="Label" parent="ChessBoard"]
+offset_left = 190.0
+offset_top = 70.0
+offset_right = 230.0
+offset_bottom = 115.0
+theme_override_font_sizes/font_size = 32
+
+[node name="WhiteEatenValue" type="Label" parent="ChessBoard"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 32
+text = "0"
+
+[node name="BlackEatenvalue" type="Label" parent="ChessBoard"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 32
+text = "0"
+
+[node name="PromotionMenu" type="PopupMenu" parent="."]
+oversampling_override = 1.0
+visible = true
+script = ExtResource("2_s2frv")
+
+[node name="Settings" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 1
+
+[node name="OpenSettings" type="Button" parent="Settings"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+mouse_filter = 1
+icon = ExtResource("5_5y81x")
+script = ExtResource("5_4djml")
+
+[node name="SettingPopUp" type="MarginContainer" parent="Settings"]
+layout_mode = 0
+script = ExtResource("7_4nir3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/SettingPopUp"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="Settings/SettingPopUp/VBoxContainer"]
+z_index = 2
+layout_mode = 2
+mouse_filter = 0
+theme_override_font_sizes/font_size = 32
+text = "SETTINGS:"
+horizontal_alignment = 1
+
+[node name="Engine" type="CheckButton" parent="Settings/SettingPopUp/VBoxContainer"]
+z_index = 2
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+action_mode = 0
+text = "Engine"
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("8_87jty")
+
+[node name="SelectEngineColour" type="HBoxContainer" parent="Settings/SettingPopUp/VBoxContainer"]
+layout_mode = 2
+
+[node name="White" type="Button" parent="Settings/SettingPopUp/VBoxContainer/SelectEngineColour"]
+z_index = 2
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = "White"
+
+[node name="Black" type="Button" parent="Settings/SettingPopUp/VBoxContainer/SelectEngineColour"]
+z_index = 2
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = SubResource("SystemFont_87jty")
+theme_override_font_sizes/font_size = 32
+text = "Black"
+
+[node name="TimerAdderText" type="HBoxContainer" parent="Settings/SettingPopUp/VBoxContainer"]
+z_index = 2
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="WhiteText" type="Label" parent="Settings/SettingPopUp/VBoxContainer/TimerAdderText"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Add time for White:                "
+
+[node name="BlackText" type="Label" parent="Settings/SettingPopUp/VBoxContainer/TimerAdderText"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "                      Add Time for Black:"
+horizontal_alignment = 2
+
+[node name="TimerAdder" type="HBoxContainer" parent="Settings/SettingPopUp/VBoxContainer"]
+z_index = 2
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="add15white" type="Button" parent="Settings/SettingPopUp/VBoxContainer/TimerAdder"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "  +15s  "
+
+[node name="add60white" type="Button" parent="Settings/SettingPopUp/VBoxContainer/TimerAdder"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "  +60s  "
+
+[node name="Separator" type="Control" parent="Settings/SettingPopUp/VBoxContainer/TimerAdder"]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+
+[node name="add15black" type="Button" parent="Settings/SettingPopUp/VBoxContainer/TimerAdder"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "  +15s  "
+
+[node name="add60black" type="Button" parent="Settings/SettingPopUp/VBoxContainer/TimerAdder"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "  +60s  "
+
+[node name="Shorttime" type="HBoxContainer" parent="Settings/SettingPopUp/VBoxContainer"]
+z_index = 2
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 24
+
+[node name="onepluszero" type="Button" parent="Settings/SettingPopUp/VBoxContainer/Shorttime"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = " 1 + 0 "
+
+[node name="oneplusone" type="Button" parent="Settings/SettingPopUp/VBoxContainer/Shorttime"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = " 1 + 1 "
+
+[node name="threepluszero" type="Button" parent="Settings/SettingPopUp/VBoxContainer/Shorttime"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = " 3 + 0 "
+
+[node name="threeplusthree" type="Button" parent="Settings/SettingPopUp/VBoxContainer/Shorttime"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = " 3 + 3 "
+
+[node name="fivepluszero" type="Button" parent="Settings/SettingPopUp/VBoxContainer/Shorttime"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = " 5 + 0 "
+
+[node name="fiveplusthree" type="Button" parent="Settings/SettingPopUp/VBoxContainer/Shorttime"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = " 5 + 3 "
+
+[node name="LongerTimeControl" type="HBoxContainer" parent="Settings/SettingPopUp/VBoxContainer"]
+z_index = 2
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 24
+
+[node name="tenpluszero" type="Button" parent="Settings/SettingPopUp/VBoxContainer/LongerTimeControl"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = " 10 + 0 "
+
+[node name="tenplusfive" type="Button" parent="Settings/SettingPopUp/VBoxContainer/LongerTimeControl"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = " 10 + 5 "
+
+[node name="fifteenplusfive" type="Button" parent="Settings/SettingPopUp/VBoxContainer/LongerTimeControl"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = " 15 + 5 "
+
+[node name="thirthyplusfifteen" type="Button" parent="Settings/SettingPopUp/VBoxContainer/LongerTimeControl"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = " 30 + 15 "
+
+[node name="hourplusone" type="Button" parent="Settings/SettingPopUp/VBoxContainer/LongerTimeControl"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = " 60 + 60 "
+
+[node name="Notime" type="Button" parent="Settings/SettingPopUp/VBoxContainer/LongerTimeControl"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = " ∞ "
+
+[node name="Restart" type="HBoxContainer" parent="Settings/SettingPopUp/VBoxContainer"]
+z_index = 2
+layout_mode = 2
+
+[node name="Gap" type="Control" parent="Settings/SettingPopUp/VBoxContainer/Restart"]
+custom_minimum_size = Vector2(520, 0)
+layout_mode = 2
+
+[node name="ResetGame" type="Button" parent="Settings/SettingPopUp/VBoxContainer/Restart"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "RESET GAME"
+script = ExtResource("9_tny37")
+
+[node name="ColorRect" type="ColorRect" parent="Settings/SettingPopUp"]
+z_index = 1
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.64705884, 0.16470589, 0.16470589, 1)
+
+[node name="FlipBoard" type="Button" parent="Settings"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 0
+offset_left = 960.0
+offset_top = 960.0
+offset_right = 1080.0
+offset_bottom = 1080.0
+scale = Vector2(0.8, 0.8)
+
+[node name="TextureRect" type="TextureRect" parent="Settings/FlipBoard"]
+layout_mode = 0
+offset_right = 99.0
+offset_bottom = 96.0
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("10_8pn77")
+
+[connection signal="popUpPromotion" from="." to="PromotionMenu" method="_on_chess_pop_up_promotion"]
+[connection signal="printMove" from="." to="PastMoves" method="_on_chess_print_move"]
+[connection signal="id_pressed" from="PromotionMenu" to="." method="_on_promotion_menu_id_pressed"]
+[connection signal="pressed" from="Settings/OpenSettings" to="Settings/SettingPopUp" method="_on_open_settings_pressed"]
+[connection signal="toggled" from="Settings/SettingPopUp/VBoxContainer/Engine" to="." method="_on_engine_toggled"]
+[connection signal="pressed" from="Settings/SettingPopUp/VBoxContainer/SelectEngineColour/White" to="." method="_on_white_pressed"]
+[connection signal="pressed" from="Settings/SettingPopUp/VBoxContainer/SelectEngineColour/Black" to="." method="_on_black_pressed"]
+[connection signal="pressed" from="Settings/SettingPopUp/VBoxContainer/TimerAdder/add15white" to="Settings/SettingPopUp" method="_on_add_15_white_pressed"]
+[connection signal="pressed" from="Settings/SettingPopUp/VBoxContainer/TimerAdder/add60white" to="Settings/SettingPopUp" method="_on_add_60_white_pressed"]
+[connection signal="pressed" from="Settings/SettingPopUp/VBoxContainer/TimerAdder/add15black" to="Settings/SettingPopUp" method="_on_add_15_black_pressed"]
+[connection signal="pressed" from="Settings/SettingPopUp/VBoxContainer/TimerAdder/add60black" to="Settings/SettingPopUp" method="_on_add_60_black_pressed"]
+[connection signal="pressed" from="Settings/SettingPopUp/VBoxContainer/Shorttime/onepluszero" to="Settings/SettingPopUp" method="_on_onepluszero_pressed"]
+[connection signal="pressed" from="Settings/SettingPopUp/VBoxContainer/Shorttime/oneplusone" to="Settings/SettingPopUp" method="_on_oneplusone_pressed"]
+[connection signal="pressed" from="Settings/SettingPopUp/VBoxContainer/Shorttime/threepluszero" to="Settings/SettingPopUp" method="_on_threeplusone_pressed"]
+[connection signal="pressed" from="Settings/SettingPopUp/VBoxContainer/Shorttime/threeplusthree" to="Settings/SettingPopUp" method="_on_threeplusthree_pressed"]
+[connection signal="pressed" from="Settings/SettingPopUp/VBoxContainer/Shorttime/fivepluszero" to="Settings/SettingPopUp" method="_on_fivepluszero_pressed"]
+[connection signal="pressed" from="Settings/SettingPopUp/VBoxContainer/Shorttime/fiveplusthree" to="Settings/SettingPopUp" method="_on_fiveplusthree_pressed"]
+[connection signal="pressed" from="Settings/SettingPopUp/VBoxContainer/LongerTimeControl/tenpluszero" to="Settings/SettingPopUp" method="_on_tenpluszero_pressed"]
+[connection signal="pressed" from="Settings/SettingPopUp/VBoxContainer/LongerTimeControl/tenplusfive" to="Settings/SettingPopUp" method="_on_tenplusfive_pressed"]
+[connection signal="pressed" from="Settings/SettingPopUp/VBoxContainer/LongerTimeControl/fifteenplusfive" to="Settings/SettingPopUp" method="_on_fifteenplusfive_pressed"]
+[connection signal="pressed" from="Settings/SettingPopUp/VBoxContainer/LongerTimeControl/thirthyplusfifteen" to="Settings/SettingPopUp" method="_on_thirthyplusfifteen_pressed"]
+[connection signal="pressed" from="Settings/SettingPopUp/VBoxContainer/LongerTimeControl/hourplusone" to="Settings/SettingPopUp" method="_on_hourplusone_pressed"]
+[connection signal="pressed" from="Settings/SettingPopUp/VBoxContainer/LongerTimeControl/Notime" to="Settings/SettingPopUp" method="_on_notime_pressed"]
+[connection signal="pressed" from="Settings/SettingPopUp/VBoxContainer/Restart/ResetGame" to="Settings/SettingPopUp/VBoxContainer/Restart/ResetGame" method="_on_pressed"]
+[connection signal="pressed" from="Settings/FlipBoard" to="." method="_on_flip_board_pressed"]

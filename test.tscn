@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bu1aucfehc82k"]
+
+[ext_resource type="Script" uid="uid://dnnw1tlfy2d6i" path="res://test.gd" id="1_8uh7m"]
+[ext_resource type="Texture2D" uid="uid://uhodkli01xv0" path="res://PieceSprite/whiterook.png" id="1_37kl0"]
+
+[node name="Test" type="Node2D"]
+script = ExtResource("1_8uh7m")
+
+[node name="Whiterook" type="Sprite2D" parent="."]
+position = Vector2(1211, 555)
+scale = Vector2(20.4375, 12.25)
+texture = ExtResource("1_37kl0")
